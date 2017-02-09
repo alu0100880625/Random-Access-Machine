@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #define RESET_REGISTER 0
 #define ACCUMULATOR_REGISTER 0

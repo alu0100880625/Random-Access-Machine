@@ -1,7 +1,7 @@
 #include "../include/common.hpp"
 
-#include "../include/data_memory.hpp"
-#include <vector>
+#include "../include/alu_cu.hpp"
+
 #include <fstream>
 
 //derecha del operando

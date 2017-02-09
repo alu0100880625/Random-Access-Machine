@@ -1,2 +1,5 @@
 *.o
 *ram_sim
+/input/
+/output/
+/program/

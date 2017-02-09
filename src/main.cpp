@@ -1,4 +1,6 @@
 #include "../include/common.hpp"
+
+#include "../include/data_memory.hpp"
 #include <vector>
 #include <fstream>
 

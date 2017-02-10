@@ -1,9 +1,10 @@
 #pragma once
 #include <vector>
+#include "../include/common.hpp"
+
 #define RESET_REGISTER 0
 #define ACCUMULATOR_REGISTER 0
 
-typedef int data_memory_t;
 
 class data_memory
 {

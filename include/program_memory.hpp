@@ -18,6 +18,6 @@ class program_memory
   private:
     std::vector<instruction_t> instructions_;
   public:
-
+    //  program_memory(/*std::string program_file*/);
     instruction_t& operator[](const int position);
 };

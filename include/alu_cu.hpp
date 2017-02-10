@@ -1,6 +1,8 @@
 #pragma once
 #include "../include/data_memory.hpp"
 #include "../include/program_memory.hpp"
+#include "../include/input_unit_t.hpp"
+#include "../include/output_unit_t.hpp"
 
 class alu_cu
 {

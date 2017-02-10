@@ -1,5 +1,62 @@
 #include "../include/common.hpp"
 
+bool valid_instruction(instruction_enums_t instruction_enums, std::string parameter, int &final_parameter)
+{
+  bool valid = 0;
+  bool baux = 0;
+  //bool valid_jump = 0;
+  if( instruction_enums.parameter_type == undefined_parameter || instruction_enums.instruction_type == undefined_instruction)
+    //throw no reconocido
+    return(0);
+
+  if(instruction_enums.parameter_type == none)
+  {
+    if(instruction_enums.instruction_type == halt)
+    {
+      final_parameter = NONE;
+      return(1);
+    }
+    else
+      return(0);
+  }
+  if(!no_blanks(parameter))
+    //throw invalid
+    return(0);
+
+  switch(instruction_enums.instruction_type)
+  {
+    jump:
+    jzero:
+    jgtz:
+      baux = 1;
+      parameter = UNDEFINED;
+      valid = instruction_enums.parameter_type == tag;
+      break;
+    default:
+      break;
+  }
+  if(baux)
+    return(valid);
+
+  if(instruction_enums.parameter_type == tag)
+    return(0);
+
+  if(((instruction_enums.instruction_type == store) || (instruction_enums.instruction_type == read)) &&
+     instruction_enums.parameter_type == constant)
+  {
+    //throw
+    return(0);
+  }
+
+  if(instruction_enums.parameter_type == constant || instruction_enums.parameter_type == indirect_addressing)
+    parameter=remove_first_character(parameter);
+
+  final_parameter = std::atoi(parameter.c_str());
+  if(final_parameter == 0 && (instruction_enums.instruction_type == read || instruction_enums.instruction_type == write))
+    return(0);
+  return(1);
+}
+
 instruction_type_t analyze_instruction(std::string s)
 {
   std::transform(s.begin(), s.end(), s.begin(), ::toupper);
@@ -41,6 +98,29 @@ parameter_type_t analyze_parameter(std::string s)
   if(s[0] == '*')
     return(indirect_addressing);
   return(undefined_parameter);
+}
+
+
+
+bool parse(std::string line, instruction_enums_t &instruction_enums, std::string &tag, std::string &parameter)
+{
+  std::string instruction = remove_comments(line);
+  //si no es 0
+  if(instruction.size() == 0)
+    return(0);
+  //bool btag = 0;
+  separate_tag(instruction/*, btag*/);
+  instruction = remove_beginning_blanks(instruction);
+
+  parameter = separate_parameter(instruction);
+    //analizar instruccion
+  instruction_enums.instruction_type = analyze_instruction(instruction);
+
+  parameter = remove_back_blanks(parameter);
+
+  instruction_enums.parameter_type = analyze_parameter(parameter);
+
+  return(1);
 }
 
 std::string remove_comments(std::string s)
@@ -85,8 +165,9 @@ std::string remove_first_character(std::string s)
   return(aux);
 }
 
-std::string separate_tag(std::string &s, bool &found)
+std::string separate_tag(std::string &s/*, bool &found*/)
 {
+  bool found = 0;
   std::string aux = "";
   unsigned int pos = 0;
   while( pos < s.size() && s[pos] != ':' )
@@ -142,4 +223,12 @@ bool is_letter(char x)
 bool is_number(char x)
 {
   return((x >= '0') && (x <= '9'));
+}
+
+bool is_number(std::string s)
+{
+  for(unsigned int i = s[0] == '-'; i < s.size(); i++)
+    if(!is_number(s[i]))
+      return(0);
+  return(1);
 }

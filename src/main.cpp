@@ -3,22 +3,9 @@
 //derecha del operando
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
-  std::ifstream file;
-  file.open("./program/test1.ram");
-  if(!file.is_open())
-  {
-    std::cerr<<"ERROR"<<std::endl;
-    return(0);
-  }
-  std::string line;
-  int i=0;
-  while(getline(file,line))
-  {
-    i++;
-    //parse(line);
-  }
-  file.close();
-
+  //mejorar
+  alu_cu my_alu_cu(argv[1],argv[2],argv[3]);
+  my_alu_cu.run(std::atoi(argv[4]));
 }

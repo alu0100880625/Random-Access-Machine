@@ -2,8 +2,8 @@
 
 bool valid_instruction(instruction_enums_t instruction_enums, std::string parameter, int &final_parameter)
 {
-  bool valid = 0;
-  bool baux = 0;
+//  bool valid = 0;
+//  bool baux = 0;
   //bool valid_jump = 0;
   if( instruction_enums.parameter_type == undefined_parameter || instruction_enums.instruction_type == undefined_instruction)
     //throw no reconocido
@@ -23,20 +23,13 @@ bool valid_instruction(instruction_enums_t instruction_enums, std::string parame
     //throw invalid
     return(0);
 
-  switch(instruction_enums.instruction_type)
+  if(instruction_enums.instruction_type == jump ||
+     instruction_enums.instruction_type == jzero ||
+     instruction_enums.instruction_type == jgtz)
   {
-    jump:
-    jzero:
-    jgtz:
-      baux = 1;
-      parameter = UNDEFINED;
-      valid = instruction_enums.parameter_type == tag;
-      break;
-    default:
-      break;
+    final_parameter = UNDEFINED;
+    return(instruction_enums.parameter_type == tag);
   }
-  if(baux)
-    return(valid);
 
   if(instruction_enums.parameter_type == tag)
     return(0);
@@ -78,6 +71,8 @@ instruction_type_t analyze_instruction(std::string s)
     return(write);
   if(s.compare("JUMP") == 0)
     return(jump);
+  if(s.compare("JZERO") == 0)
+    return(jzero);
   if(s.compare("JGTZ") == 0)
     return(jgtz);
   if(s.compare("HALT") == 0)
@@ -97,10 +92,10 @@ parameter_type_t analyze_parameter(std::string s)
     return(direct_addressing);
   if(s[0] == '*')
     return(indirect_addressing);
+  if(s.size() == 0)
+    return(none);
   return(undefined_parameter);
 }
-
-
 
 bool parse(std::string line, instruction_enums_t &instruction_enums, std::string &tag, std::string &parameter)
 {
@@ -109,7 +104,7 @@ bool parse(std::string line, instruction_enums_t &instruction_enums, std::string
   if(instruction.size() == 0)
     return(0);
   //bool btag = 0;
-  separate_tag(instruction/*, btag*/);
+  tag = separate_tag(instruction/*, btag*/);
   instruction = remove_beginning_blanks(instruction);
 
   parameter = separate_parameter(instruction);
@@ -183,6 +178,8 @@ std::string separate_tag(std::string &s/*, bool &found*/)
     for(unsigned int i = pos + 1; i < copy_s.size(); i++)
       s += copy_s[i];
   }
+  else
+    aux = "";
   return(aux);
 }
 

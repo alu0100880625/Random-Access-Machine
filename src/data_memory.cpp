@@ -9,7 +9,7 @@ data_memory::~data_memory(void)
 
 void data_memory::resize(const unsigned int position)
 {
-  while(position <= memory_.size())
+  while(position >= memory_.size())
     memory_.push_back(RESET_REGISTER);
 }
 

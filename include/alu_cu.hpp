@@ -17,7 +17,7 @@ class alu_cu
     //destructor
 
     void run_instruction(void);
-    
+
     void load_constant(int parameter);
     void direct_addressing_load(int parameter);
     void indirect_addressing_load(int parameter);

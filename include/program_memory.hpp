@@ -8,8 +8,8 @@ typedef void (alu_cu::*run_t)(int);
 
 struct tag_line_t
 {
-  std::string tag;
   int line;
+  std::string tag;
 };
 
 struct instruction_t

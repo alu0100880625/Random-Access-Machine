@@ -20,7 +20,7 @@ bool valid_instruction(instruction_enums_t instruction_enums, std::string parame
       return(0);
   }
   if(!no_blanks(parameter))
-    //throw invalid
+    ////throw invalid
     return(0);
 
   if(instruction_enums.instruction_type == jump ||
@@ -45,8 +45,10 @@ bool valid_instruction(instruction_enums_t instruction_enums, std::string parame
     parameter=remove_first_character(parameter);
 
   final_parameter = std::atoi(parameter.c_str());
-  if(final_parameter == 0 && (instruction_enums.instruction_type == read || instruction_enums.instruction_type == write))
+  if(final_parameter == 0 && (instruction_enums.instruction_type == read || instruction_enums.instruction_type == write) &&
+     instruction_enums.parameter_type == direct_addressing)
     return(0);
+  //std::cout<<"hola"<<parameter<<std::endl;
   return(1);
 }
 
@@ -144,11 +146,18 @@ std::string remove_beginning_blanks(std::string s)
 std::string remove_back_blanks(std::string s)
 {
   std::string aux = "";
-  int pos = s.size() - 1;
-  while( pos >= 0 && is_blank(s[pos]) )
-    pos--;
-  for(int i = 0; i <= pos; i++)
-    aux += s[i];
+  if(s.size() > 1)
+  {
+    int pos = s.size() - 1;
+    while( pos >= 0 && is_blank(s[pos]) )
+      pos--;
+    for(int i = 0; i <= pos; i++)
+      aux += s[i];
+    return(aux);
+  }
+  else
+    if(s.size() == 1 && !is_blank(s[0]))
+      aux = s[0];
   return(aux);
 }
 
@@ -209,7 +218,7 @@ bool no_blanks(std::string s)
 
 bool is_blank(char x)
 {
-  return( x == ' ' || x == '\t' );
+  return( x == ' ' || x == '\t');
 }
 
 bool is_letter(char x)

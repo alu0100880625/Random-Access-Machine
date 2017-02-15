@@ -15,6 +15,7 @@ output_unit_t::~output_unit_t(void)
 {
   std::clog << "Closing output file." << std::endl;
   output_file.close();
+  std::clog << "Cerrada output file." << std::endl;
 }
 
 void output_unit_t::write(data_memory_t element)

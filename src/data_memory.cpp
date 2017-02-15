@@ -9,8 +9,8 @@ data_memory::~data_memory(void)
 
 void data_memory::resize(const unsigned int position)
 {
-  while(position >= memory_.size())
-    memory_.push_back(RESET_REGISTER);
+  memory_.resize(position,RESET_REGISTER);
+  memory_.push_back(RESET_REGISTER);
 }
 
 data_memory_t& data_memory::operator[](const unsigned int position)
@@ -19,4 +19,20 @@ data_memory_t& data_memory::operator[](const unsigned int position)
   if(position >= memory_.size())
     resize(position);
   return(memory_[position]);
+}
+
+std::ostream& data_memory::view(std::ostream &os) const
+{
+  for(unsigned int i = 0; i < memory_.size(); i++)
+    os << i << " ";
+  os << std::endl;
+  for(unsigned int i = 0; i < memory_.size(); i++)
+    os << memory_[i] << " ";
+  os << std::endl;
+  return(os);
+}
+
+std::ostream& operator<<(std::ostream &os, const data_memory memory)
+{
+  return(memory.view(os));
 }

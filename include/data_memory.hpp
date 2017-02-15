@@ -15,4 +15,7 @@ class data_memory
     ~data_memory(void);
     void resize(const unsigned int position);
     data_memory_t& operator[](const unsigned int position);
+
+    std::ostream& view(std::ostream &os) const;
+    friend std::ostream& operator<<(std::ostream &os, const data_memory memory);
 };

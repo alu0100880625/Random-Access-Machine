@@ -40,8 +40,6 @@ run_t create_load_instruction(parameter_type_t parameter_type)
 
 run_t create_store_instruction(parameter_type_t parameter_type)
 {
-  if(parameter_type == constant)
-    return(nullptr);
   if(parameter_type == direct_addressing)
     return(&alu_cu::direct_addressing_store);
   if(parameter_type == indirect_addressing)

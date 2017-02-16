@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
+#include <iomanip>
 
 #define UNDEFINED -2
 #define NONE -3

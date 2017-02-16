@@ -150,11 +150,11 @@ void alu_cu::run(bool verbose)
   {
     while(!halt)
     {
-      std::cout << "IP: " <<ip_ << std::endl;
-      std::cout << "Registros: " << std::endl;
-      std::cout << data_memory_ << std::endl;
+      std::cout << "IP: "  << ip_ << std::endl;
       std::cout << "Instruction:" << std::endl;
       std::cout << program_memory_[ip_].line << std::endl;
+      std::cout << "Registros: " << std::endl;
+      std::cout << data_memory_ << std::endl;
 
       if(program_memory_[ip_].run == nullptr && program_memory_[ip_].parameter == NONE)
         halt = 1;

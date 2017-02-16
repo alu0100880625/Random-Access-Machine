@@ -24,10 +24,10 @@ data_memory_t& data_memory::operator[](const unsigned int position)
 std::ostream& data_memory::view(std::ostream &os) const
 {
   for(unsigned int i = 0; i < memory_.size(); i++)
-    os << i << " ";
+    os << std::setw(5) << i << " ";
   os << std::endl;
   for(unsigned int i = 0; i < memory_.size(); i++)
-    os << memory_[i] << " ";
+    os << std::setw(5) << memory_[i] << " ";
   os << std::endl;
   return(os);
 }

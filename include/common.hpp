@@ -1,6 +1,6 @@
 #pragma once
+#include "../include/alu_cu_exception.hpp"
 #include <algorithm>
-#include <iostream>
 #include <iomanip>
 
 #define UNDEFINED -2
@@ -53,7 +53,7 @@ std::string remove_beginning_blanks(std::string s);
 std::string remove_back_blanks(std::string s);
 std::string remove_first_character(std::string s);
 
-std::string separate_tag(std::string &s/*, bool &found*/);
+std::string separate_tag(std::string &s);
 std::string separate_parameter(std::string &s);
 
 bool no_blanks(std::string s);

@@ -8,6 +8,9 @@ alu_cu::alu_cu(std::string program_file_name, std::string input_file_name, std::
   output_unit(output_file_name)
   {}
 
+alu_cu::~alu_cu(void)
+{}
+
 void alu_cu::load_constant(int parameter)
 {
   data_memory_[ACCUMULATOR_REGISTER] = parameter;
@@ -143,42 +146,38 @@ void alu_cu::jgtz(int parameter)
     ip_ = parameter;
 }
 
-void alu_cu::run(bool verbose)
+void alu_cu::run(bool debug)
 {
   bool halt=0;
-  if(verbose)
+  if(debug)
   {
     while(!halt)
     {
+      if(ip_ < 0)
+        throw(new alu_cu_invalid_ip_exception(std::to_string(ip_)));
       std::cout << "IP: "  << ip_ << std::endl;
       std::cout << "Instruction:" << std::endl;
       std::cout << program_memory_[ip_].line << std::endl;
       std::cout << "Registros: " << std::endl;
       std::cout << data_memory_ << std::endl;
-
       if(program_memory_[ip_].run == nullptr && program_memory_[ip_].parameter == NONE)
         halt = 1;
       else
         (this->*(program_memory_[ip_].run))(program_memory_[ip_].parameter);
       ++ip_;
-      //throw ip<0
     }
   }
   else
   {
     while(!halt)
     {
+      if(ip_ < 0)
+        throw(new alu_cu_invalid_ip_exception(std::to_string(ip_)));
       if(program_memory_[ip_].run == nullptr && program_memory_[ip_].parameter == NONE)
         halt = 1;
       else
-      {
         (this->*(program_memory_[ip_].run))(program_memory_[ip_].parameter);
-        //run_instruction();
-          //std::cout<<"hola"<<std::endl;
-      }
       ++ip_;
-      //throw ip<0
     }
   }
-
 }

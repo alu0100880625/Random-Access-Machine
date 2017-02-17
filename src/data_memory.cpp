@@ -7,16 +7,17 @@ data_memory::data_memory(void):
 data_memory::~data_memory(void)
 {}
 
-void data_memory::resize(const unsigned int position)
+void data_memory::resize(const int position)
 {
   memory_.resize(position,RESET_REGISTER);
   memory_.push_back(RESET_REGISTER);
 }
 
-data_memory_t& data_memory::operator[](const unsigned int position)
+data_memory_t& data_memory::operator[](const int position)
 {
-  //if <0 throw
-  if(position >= memory_.size())
+  if( position < 0 )
+    throw(new alu_cu_invalid_data_memory_access_exception(std::to_string(position)));
+  if( unsigned(position) >= memory_.size())
     resize(position);
   return(memory_[position]);
 }

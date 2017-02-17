@@ -6,8 +6,7 @@ input_unit_t::input_unit_t(std::string input_file_name):
     if(input_file.is_open())
       std::clog << "The input file has been opened successfully." << std::endl;
     else
-      std::cerr << "ERROR opening the input file" << std::endl;
-     //throw
+      throw(new alu_cu_invalid_input_file_exception(input_file_name));
   }
 
 input_unit_t::~input_unit_t(void)

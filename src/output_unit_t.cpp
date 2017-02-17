@@ -7,15 +7,13 @@ output_unit_t::output_unit_t(std::string output_file_name):
     if(output_file.is_open())
       std::clog << "The output file has been opened successfully." << std::endl;
     else
-      std::cerr << "ERROR opening the output file." << std::endl;
-     //throw
+      throw(new alu_cu_invalid_output_file_exception(output_file_name));
   }
 
 output_unit_t::~output_unit_t(void)
 {
   std::clog << "Closing output file." << std::endl;
   output_file.close();
-  std::clog << "Cerrada output file." << std::endl;
 }
 
 void output_unit_t::write(data_memory_t element)

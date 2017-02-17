@@ -14,21 +14,17 @@ class alu_cu
     output_unit_t output_unit;
   public:
     alu_cu(std::string program_file_name, std::string input_file_name, std::string output_file_name);
-    //destructor
+    ~alu_cu(void);
 
     void run_instruction(void);
 
     void load_constant(int parameter);
     void direct_addressing_load(int parameter);
     void indirect_addressing_load(int parameter);
-    //void store_const(int parameter)
 
     void direct_addressing_store(int parameter);
-//////////////////////////////////////////
-/////////////REVISAR//////////////////////
-//////////////////////////////////////////
     void indirect_addressing_store(int parameter);
-////////////////////////////////////////////
+
     void add_constant(int parameter);
     void direct_addressing_add(int parameter);
     void indirect_addressing_add(int parameter);
@@ -46,17 +42,15 @@ class alu_cu
     void indirect_addressing_div(int parameter);
 
     void direct_addressing_read(int parameter);
-    void indirect_addressing_read(int parameter); //REVISAR
-                                                //REVISAR
+    void indirect_addressing_read(int parameter);
 
     void write_constant(int parameter);
     void direct_addressing_write(int parameter);
-    void indirect_addressing_write(int parameter);  //REVISAR
-                                                    //REVISAR
+    void indirect_addressing_write(int parameter);
 
     void jump(int parameter);
     void jzero(int parameter);
     void jgtz(int parameter);
 
-    void run(bool verbose);
+    void run(bool debug);
 };

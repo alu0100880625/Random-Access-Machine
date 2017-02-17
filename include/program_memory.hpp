@@ -25,8 +25,8 @@ class program_memory
     std::vector<instruction_t> instructions_;
   public:
     program_memory(std::string program_file_name);
-    //  program_memory(/*std::string program_file*/);
-    //destructor
+    ~program_memory(void);
+
     bool valid_program_memory(void);
     instruction_t& operator[](const int position);
 };

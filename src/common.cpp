@@ -2,9 +2,6 @@
 
 bool valid_instruction(instruction_enums_t instruction_enums, std::string parameter, int &final_parameter)
 {
-//  bool valid = 0;
-//  bool baux = 0;
-  //bool valid_jump = 0;
   if( instruction_enums.parameter_type == undefined_parameter || instruction_enums.instruction_type == undefined_instruction)
     //throw no reconocido
     return(0);
@@ -102,11 +99,10 @@ parameter_type_t analyze_parameter(std::string s)
 bool parse(std::string line, instruction_enums_t &instruction_enums, std::string &tag, std::string &parameter)
 {
   std::string instruction = remove_comments(line);
-  //si no es 0
+
   if(instruction.size() == 0)
     return(0);
-  //bool btag = 0;
-  tag = separate_tag(instruction/*, btag*/);
+  tag = separate_tag(instruction);
   instruction = remove_beginning_blanks(instruction);
 
   parameter = separate_parameter(instruction);
@@ -169,7 +165,7 @@ std::string remove_first_character(std::string s)
   return(aux);
 }
 
-std::string separate_tag(std::string &s/*, bool &found*/)
+std::string separate_tag(std::string &s)
 {
   bool found = 0;
   std::string aux = "";

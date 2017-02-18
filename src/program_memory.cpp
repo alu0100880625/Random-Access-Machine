@@ -11,7 +11,7 @@ program_memory::program_memory(std::string program_file_name):
       throw(new alu_cu_invalid_program_file_exception(program_file_name));
     std::clog << "Compiling program.." << std::endl;
     std::string program_file_line, instruction_parameter_string;
-    //REVISAR EL PARAMETRO
+
     instruction_t instruction;
     int line_counter=0;
     std::vector<tag_line_t> tags_vector, jumps_vector;
@@ -57,6 +57,7 @@ program_memory::program_memory(std::string program_file_name):
     }
     std::clog << "Closing program file." << std::endl;
     program_file.close();
+    //edita el parámetro de las etiquetas de salto
     for(unsigned int i = 0; i < jumps_vector.size(); i++)
       for(unsigned int j = 0; j < tags_vector.size(); j++)
         if(jumps_vector[i].tag.compare(tags_vector[j].tag) == 0)
@@ -90,7 +91,7 @@ bool program_memory::valid_program_memory(void)
 
 instruction_t& program_memory::operator[](const int position)
 {
-  if(position < 0)
+  if(position < 0 || unsigned(position) >= instructions_.size())
     throw(new alu_cu_invalid_program_memory_access_exception(std::to_string(position)));
   return(instructions_[position]);
 }

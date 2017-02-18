@@ -3,7 +3,6 @@
 bool valid_instruction(instruction_enums_t instruction_enums, std::string parameter, int &final_parameter)
 {
   if( instruction_enums.parameter_type == undefined_parameter || instruction_enums.instruction_type == undefined_instruction)
-    //throw no reconocido
     return(0);
 
   if(instruction_enums.parameter_type == none)
@@ -17,7 +16,6 @@ bool valid_instruction(instruction_enums_t instruction_enums, std::string parame
       return(0);
   }
   if(!no_blanks(parameter))
-    ////throw invalid
     return(0);
 
   if(instruction_enums.instruction_type == jump ||
@@ -33,10 +31,7 @@ bool valid_instruction(instruction_enums_t instruction_enums, std::string parame
 
   if(((instruction_enums.instruction_type == store) || (instruction_enums.instruction_type == read)) &&
      instruction_enums.parameter_type == constant)
-  {
-    //throw
     return(0);
-  }
 
   if(instruction_enums.parameter_type == constant || instruction_enums.parameter_type == indirect_addressing)
     parameter=remove_first_character(parameter);
@@ -45,7 +40,6 @@ bool valid_instruction(instruction_enums_t instruction_enums, std::string parame
   if(final_parameter == 0 && (instruction_enums.instruction_type == read || instruction_enums.instruction_type == write) &&
      instruction_enums.parameter_type == direct_addressing)
     return(0);
-  //std::cout<<"hola"<<parameter<<std::endl;
   return(1);
 }
 
@@ -106,7 +100,7 @@ bool parse(std::string line, instruction_enums_t &instruction_enums, std::string
   instruction = remove_beginning_blanks(instruction);
 
   parameter = separate_parameter(instruction);
-    //analizar instruccion
+
   instruction_enums.instruction_type = analyze_instruction(instruction);
 
   parameter = remove_back_blanks(parameter);

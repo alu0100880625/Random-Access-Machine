@@ -93,7 +93,7 @@ parameter_type_t analyze_parameter(std::string s)
 bool parse(std::string line, instruction_enums_t &instruction_enums, std::string &tag, std::string &parameter)
 {
   std::string instruction = remove_comments(line);
-
+  instruction = remove_beginning_blanks(instruction);
   if(instruction.size() == 0)
     return(0);
   tag = separate_tag(instruction);

@@ -16,7 +16,7 @@ void data_memory::resize(const int position)
 data_memory_t& data_memory::operator[](const int position)
 {
   if( position < 0 )
-    throw(new alu_cu_invalid_data_memory_access_exception(std::to_string(position)));
+    throw(alu_cu_invalid_data_memory_access_exception(std::to_string(position)));
   if( unsigned(position) >= memory_.size())
     resize(position);
   return(memory_[position]);

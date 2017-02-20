@@ -49,7 +49,7 @@ instruction_type_t analyze_instruction(std::string s);
 parameter_type_t analyze_parameter(std::string s);
 //función a la que se le pasa una línea del programa y retorna un true si la línea no es vacía
 //tambien modifica el struct pasado por referencia indicando el tipo del parámetro y el tipo de instrucción
-//finalmente también modifica las strings de etiqueta y parámetro pasadas por referencia 
+//finalmente también modifica las strings de etiqueta y parámetro pasadas por referencia
 bool parse(std::string line, instruction_enums_t &instruction_enums, std::string &tag, std::string &parameter);
 //función que recibe una string y retorna otra en la que se han eliminado los comentarios
 std::string remove_comments(std::string s);

@@ -154,7 +154,7 @@ void alu_cu::run(bool debug)
     while(!halt)
     {
       if(ip_ < 0)
-        throw(new alu_cu_invalid_ip_exception(std::to_string(ip_)));
+        throw(alu_cu_invalid_ip_exception(std::to_string(ip_)));
       std::cout << "IP: "  << ip_ << std::endl;
       std::cout << "Instruction:" << std::endl;
       std::cout << program_memory_[ip_].line << std::endl;
@@ -172,7 +172,7 @@ void alu_cu::run(bool debug)
     while(!halt)
     {
       if(ip_ < 0)
-        throw(new alu_cu_invalid_ip_exception(std::to_string(ip_)));
+        throw(alu_cu_invalid_ip_exception(std::to_string(ip_)));
       if(program_memory_[ip_].run == nullptr && program_memory_[ip_].parameter == NONE)
         halt = 1;
       else

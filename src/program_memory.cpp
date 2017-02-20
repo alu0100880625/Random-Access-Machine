@@ -8,7 +8,7 @@ program_memory::program_memory(std::string program_file_name):
     if(program_file.is_open())
       std::clog << "The program file has been opened successfully." << std::endl;
     else
-      throw(new alu_cu_invalid_program_file_exception(program_file_name));
+      throw(alu_cu_invalid_program_file_exception(program_file_name));
     std::clog << "Compiling program.." << std::endl;
     std::string program_file_line, instruction_parameter_string;
 
@@ -24,11 +24,11 @@ program_memory::program_memory(std::string program_file_name):
         if(!valid_instruction(instruction_enums, instruction_parameter_string, instruction.parameter))
         {
           std::string info = "line ";
-          info += (line_counter + 1);
+          info += std::to_string(line_counter + 1);
           info +=": ";
           info += program_file_line;
           program_file.close();
-          throw(new alu_cu_invalid_instruction_exception(info));
+          throw(alu_cu_invalid_instruction_exception(info));
         }
         //validar entero por referencia
         //validar tag izquierdo
@@ -81,10 +81,10 @@ bool program_memory::valid_program_memory(void)
     if(instructions_[i].parameter == UNDEFINED)
     {
       std::string info = "line ";
-      info += (i + 1);
+      info += std::to_string(i + 1);
       info +=": ";
       info += instructions_[i].line;
-      throw (new alu_cu_invalid_instruction_exception((info)));
+      throw(alu_cu_invalid_instruction_exception((info)));
     }
   return(1);
 }
@@ -92,6 +92,6 @@ bool program_memory::valid_program_memory(void)
 instruction_t& program_memory::operator[](const int position)
 {
   if(position < 0 || unsigned(position) >= instructions_.size())
-    throw(new alu_cu_invalid_program_memory_access_exception(std::to_string(position)));
+    throw(alu_cu_invalid_program_memory_access_exception(std::to_string(position)));
   return(instructions_[position]);
 }

@@ -169,6 +169,7 @@ void alu_cu::run(bool debug)
   }
   else
   {
+    int count = 0;
     while(!halt)
     {
       if(ip_ < 0)
@@ -178,6 +179,8 @@ void alu_cu::run(bool debug)
       else
         (this->*(program_memory_[ip_].run))(program_memory_[ip_].parameter);
       ++ip_;
+      ++count;
     }
+    std::cout << "Number of instructions: " << count << std::endl;
   }
 }
